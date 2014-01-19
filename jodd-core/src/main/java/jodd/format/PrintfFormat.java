@@ -423,9 +423,7 @@ public class PrintfFormat {
 	public String form(char value) {
 		switch(fmt) {
 			case 'c':
-				return alternate ? "\\u" + Integer.toHexString((int) value & 0xFFFF) : pad(String.valueOf(value));
-			case 'C':
-				return alternate ? "\\u" + Integer.toHexString((int) value & 0xFFFF).toUpperCase() : pad(String.valueOf(value));
+				return pad(String.valueOf(value));
 			case 'd':
 			case 'i':
 			case 'u':
@@ -437,7 +435,7 @@ public class PrintfFormat {
 			case 'L':
 				return form((short) value);
 			default:
-				throw newIllegalArgumentException("cCdiuoxXblL");
+				throw new IllegalArgumentException("Invalid format: '" + fmt + "' is not 'cdiuoxXblL'.");
 		}
 	}
 
@@ -671,7 +669,7 @@ public class PrintfFormat {
 				r = (value == 0 ? "FALSE" : "TRUE");
 				break;
 			default:
-				throw newIllegalArgumentException("cdiuoxXblL");
+				throw new IllegalArgumentException("Invalid format: '" + fmt + "' is not one of 'cdiuoxXblL'.");
 		}
 		return pad(sign(s, r));
 	}
