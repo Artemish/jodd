@@ -495,7 +495,36 @@ public class FormatTest {
 
 		assertEquals("173 1.73 A", result);
 	}
-
+	
+	@Test
+	public void testNumberPrinted() {
+		int[] address = new int[1];
+		int[] address2 = new int[1];
+		
+		String aux1, aux2, aux3;
+		
+		aux1 = "Hello!";
+		assertEquals(Printf.str(aux1 + "%n", address), aux1);
+		assertEquals(address[0], aux1.length());
+		
+		aux1 = "There";
+		aux2 = " remain characters.";
+		assertEquals(Printf.str(aux1 + "%n" + aux2, address), aux1 + aux2);
+		assertEquals(address[0], aux1.length());
+		
+		aux1 = "A";
+		aux2 = " few";
+		aux3 = "stops.";
+		assertEquals(Printf.str(aux1 + "%n" + aux2 + "%n" + aux3, address, address2),
+				aux1 + aux2 + aux3);
+		assertEquals(address[0], aux1.length());
+		assertEquals(address2[0], (aux1 + aux2).length());
+		
+		aux1 = "String argument.";
+		assertEquals(Printf.str("%s%n", aux1, address), aux1);
+		assertEquals(address[0], aux1.length());
+	}
+	
 	@Test
 	public void testDoublesRound() {
 		assertEquals(Printf.str("%1.0f", 0.50), "1");

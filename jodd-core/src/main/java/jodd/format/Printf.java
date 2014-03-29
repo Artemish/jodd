@@ -63,6 +63,10 @@ public class Printf {
 	public static String str(String format, String value) {
 		return new PrintfFormat(format).form(value);
 	}
+	
+	public static String str(String format, int[] value) {
+ 		return new PrintfFormat(format).form(value);
+	}
 
 	// ---------------------------------------------------------------- objects
 
@@ -101,7 +105,9 @@ public class Printf {
 				format = pf.form(((Number)param).intValue());
 			}
 		} else if (param instanceof Character) {
-				format = pf.form(((Character) param).charValue());
+			format = pf.form(((Character) param).charValue());
+		} else if (param instanceof int[]) {
+			format = pf.form((int[]) param);
 		} else {
 			format = pf.form(param.toString());
 		}
