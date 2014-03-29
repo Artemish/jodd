@@ -71,6 +71,10 @@ public class Printf {
 	public static String str(String format, String value) {
 		return new PrintfFormat(format).form(value);
 	}
+	
+	public static String str(String format, int[] value) {
+ 		return new PrintfFormat(format).form(value);
+	}
 
 	public static String str(String format, Object param) {
 		return new PrintfFormat(format).form(param);
@@ -81,8 +85,37 @@ public class Printf {
 	public static String str(String format, Object... params) {
 		PrintfFormat pf = new PrintfFormat();
 		for (Object param : params) {
-			pf.reinit(format);
-			format = pf.form(param);
+			format = print(pf, format, param);
+		}
+		return format;
+	}
+
+	// ---------------------------------------------------------------- private
+
+	private static String print(PrintfFormat pf, String format, Object param) {
+		pf.reinit(format);
+		if (param instanceof Number) {
+			if (param instanceof Integer) {
+				format = pf.form(((Integer) param).intValue());
+			} else if (param instanceof Long) {
+				format = pf.form(((Long) param).longValue());
+			} else if (param instanceof Double) {
+				format = pf.form(((Double) param).doubleValue());
+			} else if (param instanceof Float) {
+				format = pf.form(((Float) param).floatValue());
+			} else if (param instanceof Byte) {
+				format = pf.form(((Byte) param).byteValue());
+			} else if (param instanceof Short) {
+				format = pf.form(((Short) param).shortValue());
+			} else {
+				format = pf.form(((Number)param).intValue());
+			}
+		} else if (param instanceof Character) {
+			format = pf.form(((Character) param).charValue());
+		} else if (param instanceof int[]) {
+			format = pf.form((int[]) param);
+		} else {
+			format = pf.form(param.toString());
 		}
 		return format;
 	}

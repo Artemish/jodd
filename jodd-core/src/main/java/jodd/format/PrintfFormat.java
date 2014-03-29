@@ -728,5 +728,17 @@ public class PrintfFormat {
 	protected IllegalArgumentException newIllegalArgumentException(String allowedFormats) {
 		return new IllegalArgumentException("Invalid format: '" + fmt + "' is not one of '" + allowedFormats + "'");
 	}
-
+	
+	public String form(int[] addr) {
+		if (fmt != 'n') {
+			throw new IllegalArgumentException("Invalid format: '" + fmt + "' is not 'n'.");
+		}
+		// You can initialize arrays to size 0. Shikata ga nai
+		if (addr.length < 1) { 
+			throw new IllegalArgumentException("Address array for '%n' must be at least of length one.");
+		}
+		int charsPrinted = (pre == null) ? 0 : pre.length();
+		addr[0] = charsPrinted;
+		return pre + "" + post;
+	}
 }
