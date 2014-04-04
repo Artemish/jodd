@@ -76,6 +76,8 @@ public class Printf {
  		return new PrintfFormat(format).form(value);
 	}
 
+	// ---------------------------------------------------------------- objects
+
 	public static String str(String format, Object param) {
 		return new PrintfFormat(format).form(param);
 	}
