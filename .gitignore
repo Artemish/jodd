@@ -10,6 +10,7 @@ target
 /classes/
 /gradle.properties
 
+*~
 .project
 .classpath
 .settings
